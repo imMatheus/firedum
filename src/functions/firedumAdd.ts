@@ -2,20 +2,19 @@ import firebase from 'firebase/app'
 import getRandomNumber from '../utils/getRandomNumber'
 import getRandomString from '../utils/getRandomString'
 
-interface firestoreAddProps {
+interface Props {
     collectionReference: firebase.firestore.CollectionReference
-    fields?: { [key: string]: any }
-    item?: {}
+    fields: { [key: string]: any }
     numberOfItems?: number
 }
 
-export default function firestoreAdd({
+export default async function firedumAdd({
     collectionReference,
     fields,
-    item,
     numberOfItems = 1, // default is 1
-}: firestoreAddProps) {
-    if (!fields && !item) throw new Error('please provide at least item fields or an item object')
+}: Props) {
+    if (!collectionReference) throw new Error('Please provide a firestore collection reference')
+    if (!fields) throw new Error('Please provide at least one field to fields')
 
     let data: { [key: string]: any } = {}
     for (const field in fields) {
@@ -32,6 +31,6 @@ export default function firestoreAdd({
     }
 
     for (let i = 0; i < numberOfItems; i++) {
-        collectionReference.add(item || data)
+        await collectionReference.add(data)
     }
 }

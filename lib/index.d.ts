@@ -1,6 +1,8 @@
-import firestoreAdd from './functions/firestoreAdd';
+import firedumAdd from './functions/firedumAdd';
+import firedumUpdate from './functions/firedumUpdate';
 declare const _default: {
-    firestoreAdd: typeof firestoreAdd;
+    firedumAdd: typeof firedumAdd;
+    firedumUpdate: typeof firedumUpdate;
 };
 export default _default;
 //# sourceMappingURL=index.d.ts.map
