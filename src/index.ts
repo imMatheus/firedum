@@ -2,6 +2,8 @@ import { fs } from './firebase'
 import firedumAdd from './functions/firedumAdd'
 import firedumUpdate from './functions/firedumUpdate'
 import firedumCreateUser from './functions/firebaseCreateUser'
+import isLiteralObject from './utils/isLiteralObject'
+
 const fields = { firstName: '', lastName: '', age: 0 }
 const OPTIONS = {
     collectionReference: fs.collection('test'),
@@ -14,8 +16,12 @@ const OPTIONS = {
     },
     numberOfItems: 2,
 }
-firedumAdd(OPTIONS)
-firedumCreateUser({ userFields: { 0: 'matheus', _0: 0 } })
+// firedumAdd(OPTIONS)
+firedumCreateUser({
+    amountOfUsers: 10,
+    userFields: { yy: 'matheus', i: 0 },
+    usersCollectionReference: fs.collection('using'),
+})
 // firestoreUpdate(OPTIONS)
-export default { firedumAdd, firedumUpdate }
+export default { firedumAdd, firedumUpdate, firedumCreateUser }
 // fs.collection('test').add({ name: getRandomString(5) })

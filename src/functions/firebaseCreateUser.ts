@@ -17,11 +17,17 @@ interface Props {
  */
 
 export default async function firedumCreateUser({
-    amountOfUsers,
+    amountOfUsers = 1,
     userFields,
     usersCollectionReference,
 }: Props) {
-    for (let i = 0; i < (amountOfUsers || 1); i++) {
+    console.log('runner')
+
+    // if (amountOfUsers && typeof amountOfUsers !== 'number')
+    //     throw new Error('amountOfUsers is not a number ')
+
+    console.log('started')
+    for (let i = 0; i < amountOfUsers; i++) {
         const password = getRandomString(16)
         const email = getRandomString(12) + '@' + getRandomString(12) + '.com'
         try {
@@ -44,7 +50,10 @@ export default async function firedumCreateUser({
                         data[field] = value // overwrite teh previus value with the new random value
                     }
                 }
-                if (usersCollectionReference) {
+                if (
+                    usersCollectionReference &&
+                    typeof usersCollectionReference === typeof fs.collection('users')
+                ) {
                     await usersCollectionReference.add({
                         password: password,
                         email: email,
@@ -62,4 +71,5 @@ export default async function firedumCreateUser({
             return error
         }
     }
+    console.log('end of run')
 }

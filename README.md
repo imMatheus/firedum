@@ -95,3 +95,24 @@ const OPTIONS = {
 
 firedumUpdate(OPTIONS)
 ```
+
+## firedumCreateUser
+
+Adding new user
+
+```js
+import { firedumCreateUser } from 'firedum'
+
+const OPTIONS = {
+    // a reference to a firestore collection - REQUIRED
+    collectionReference: fs.collection('users'),
+    // a lsit of fields to be change to the document
+    fields: {
+        lastName: 'Baz', // changes the lastName property of each document to 'Baz'
+        age: 54, // changes the age property of each document to 54
+        // NOTE if a document doesn't have a given field, firedum will add it
+    },
+}
+
+firedumUpdate(OPTIONS)
+```
