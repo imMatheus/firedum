@@ -1,38 +1,20 @@
 import { fs } from './firebase'
-import firebase from 'firebase/app'
-import getRandomString from './utils/getRandomString'
-
-interface firestoreAddProps {
-    collectionReference: firebase.firestore.CollectionReference
-    fields?: {}
-    item?: {}
-    numberOfItems?: number
-}
-
-export function firestoreAdd({
-    collectionReference,
-    fields,
-    item,
-    numberOfItems,
-}: firestoreAddProps) {
-    numberOfItems = numberOfItems || 1
-    let data = {}
-    for (const field in fields) {
-        console.log(field)
-        data = {
-            ...data,
-            [field]: getRandomString(5),
-        }
-    }
-    for (let i = 0; i < numberOfItems; i++) {
-        collectionReference.add(data)
-    }
-}
+import firestoreAdd from './functions/firestoreAdd'
+import firestoreUpdate from './functions/firestoreUpdate'
 
 const fields = { firstName: '', lastName: '', age: 0 }
 const OPTIONS = {
     collectionReference: fs.collection('test'),
+    // item: { hej: 'hej' },
+    fields: {
+        name: 'n4m3',
+        // lastName: 'lasting',
+        age: 45,
+        pay: 0,
+    },
+    numberOfItems: 2,
 }
 firestoreAdd(OPTIONS)
-
+// firestoreUpdate(OPTIONS)
+export default { firestoreAdd, firestoreUpdate }
 // fs.collection('test').add({ name: getRandomString(5) })

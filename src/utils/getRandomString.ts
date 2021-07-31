@@ -1,5 +1,3 @@
-import firebase from 'firebase/app'
-
 /**
  *
  * @param length - length of string
@@ -14,12 +12,11 @@ export default function getRandomString(length: number, includeNumbers?: boolean
     const numbers = includeNumbers ? '0123456789' : ''
     const characters = alphabet + upperCaseAlphabet + numbers // combine all of them into one string
 
-    let link = ''
-    // if we failed 3 times we increment the link length with +1
+    let value = ''
     for (let i = 0; i < length; i++) {
         const n = Math.floor(Math.random() * characters.length)
-        link += characters[n]
+        value += characters[n]
     }
 
-    return link
+    return value
 }

@@ -1,4 +1,6 @@
-import firebase from 'firebase/app';
-export declare function addition(a: number, b: number): number;
-export declare function firestoreAdd(fsReference: firebase.firestore.CollectionReference, fields: {}, numberOfItems?: number): void;
+import firestoreAdd from './functions/firestoreAdd';
+declare const _default: {
+    firestoreAdd: typeof firestoreAdd;
+};
+export default _default;
 //# sourceMappingURL=index.d.ts.map
