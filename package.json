@@ -1,0 +1,25 @@
+{
+    "name": "firedum",
+    "version": "1.0.0",
+    "description": "",
+    "main": "lib/index.js",
+    "types": "lib",
+    "scripts": {
+        "build": "tsc -p .",
+        "gg": "npx ts-node src/index.ts",
+        "watch": "ts-node-dev --respawn -- src/index.ts"
+    },
+    "keywords": [
+        "firebase",
+        "typescript"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "firebase": "^8.8.1",
+        "firebase-admin": "^9.7.0",
+        "firebase-tools": "^9.10.0",
+        "ts-node-dev": "^1.1.8",
+        "typescript": "^4.3.5"
+    }
+}
