@@ -98,21 +98,24 @@ firedumUpdate(OPTIONS)
 
 ## firedumCreateUser
 
-Adding new user
+Adding new users via authentication with email and password
 
 ```js
 import { firedumCreateUser } from 'firedum'
 
 const OPTIONS = {
-    // a reference to a firestore collection - REQUIRED
-    collectionReference: fs.collection('users'),
-    // a lsit of fields to be change to the document
-    fields: {
-        lastName: 'Baz', // changes the lastName property of each document to 'Baz'
-        age: 54, // changes the age property of each document to 54
-        // NOTE if a document doesn't have a given field, firedum will add it
+    // adds 10 new users
+    amountOfUsers: 10, // defaults to 1
+    // fields to be added to a users collections in firestore to each user that gets created
+    userFields: {
+        age: 0, // if a falsy value gets past firedum will generate a random one for you with the same type
+        address: '', // same goes for this one
+        phone: 'iphone', // giving a truthy value will be passed to all users the users
     },
+    // a firestore collection reference to add the user documents to
+    // if this is not passed in it will default to the 'users' collection
+    usersCollectionReference: fs.collection('users'),
 }
 
-firedumUpdate(OPTIONS)
+firedumCreateUser(OPTIONS)
 ```
