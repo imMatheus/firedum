@@ -2,30 +2,36 @@ import { fs } from './firebase'
 import firedumAdd from './functions/firedumAdd'
 import firedumUpdate from './functions/firedumUpdate'
 import firedumCreateUser from './functions/firebaseCreateUser'
-import isLiteralObject from './utils/isLiteralObject'
-
-console.log(!(5 < 7))
 
 const OPTIONS = {
-    collectionReference: fs.collection('names'),
+    collectionReference: fs.collection('r'),
     // item: { hej: 'hej' },
     fields: {
         name: null,
-        abbreviation: '',
-        adjective: '',
-        noun: '',
-        verb: '',
-        ingverb: '',
-        phrase: '',
+        // abbreviation: '',
+        // adjective: '',
+        // noun: '',
+        // verb: '',
+        // ingverb: '',
+        // phrase: '',
         // past: '',
         // future: '',
         // recent: '',
         // month: '',
         // weekday: '',
     },
-    numberOfItems: 300,
+    numberOfItems: 10000,
 }
-firedumAdd(OPTIONS)
+const runner = async () => {
+    console.log('start')
+    console.time('starter')
+    console.timeLog('starter')
+    let g = await firedumAdd(OPTIONS)
+    console.log('end')
+    console.timeEnd('starter')
+    console.log(g)
+}
+runner()
 // firedumCreateUser({
 //     amountOfUsers: 10,
 //     userFields: { yy: 'matheus', i: 0 },

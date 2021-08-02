@@ -4,13 +4,13 @@ import 'firebase/database'
 import 'firebase/firestore'
 
 const app = firebase.initializeApp({
-    apiKey: 'AIzaSyA3aMd0oKHH1vCN3OxEugzVwJhtfN2D2PQ',
-    authDomain: 'firedum-testing.firebaseapp.com',
-    databaseURL: 'https://firedum-testing-default-rtdb.europe-west1.firebasedatabase.app',
-    projectId: 'firedum-testing',
-    storageBucket: 'firedum-testing.appspot.com',
-    messagingSenderId: '575721810932',
-    appId: '1:575721810932:web:175ec24b0619926abca7a1',
+    apiKey: 'AIzaSyCxcM-BfVSqN4hpXyVCUBDhEtmNZoh9IJc',
+    authDomain: 'firedum-abc.firebaseapp.com',
+    databaseURL: 'https://firedum-abc-default-rtdb.europe-west1.firebasedatabase.app',
+    projectId: 'firedum-abc',
+    storageBucket: 'firedum-abc.appspot.com',
+    messagingSenderId: '358780478136',
+    appId: '1:358780478136:web:847958635f643547f38a4d',
 })
 
 export const fs = firebase.firestore()
