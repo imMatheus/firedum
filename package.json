@@ -1,6 +1,6 @@
 {
     "name": "firedum",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "",
     "main": "lib/index.js",
     "types": "lib",
@@ -16,10 +16,14 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/faker": "^5.5.7",
         "firebase": "^8.8.1",
         "firebase-admin": "^9.7.0",
         "firebase-tools": "^9.10.0",
         "ts-node-dev": "^1.1.8",
         "typescript": "^4.3.5"
+    },
+    "dependencies": {
+        "faker": "^5.5.3"
     }
 }

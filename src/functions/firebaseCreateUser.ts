@@ -16,6 +16,11 @@ interface Props {
  * @returns
  */
 
+// TODO
+// storage
+// querys
+// faker.js
+
 export default async function firedumCreateUser({
     amountOfUsers = 1,
     userFields,
