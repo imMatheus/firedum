@@ -1,3 +1,7 @@
+// TODO
+// storage
+// querys
+// faker.js
 import firebase from 'firebase/app'
 import getRandomNumber from '../utils/getRandomNumber'
 import getRandomString from '../utils/getRandomString'
@@ -16,28 +20,27 @@ interface Props {
  * @returns
  */
 
-// TODO
-// storage
-// querys
-// faker.js
-
 export default async function firedumCreateUser({
     amountOfUsers = 1,
     userFields,
     usersCollectionReference,
 }: Props) {
-    console.log('runner')
-
-    // if (amountOfUsers && typeof amountOfUsers !== 'number')
-    //     throw new Error('amountOfUsers is not a number ')
-
-    console.log('started')
+    let users: { email: string; password: string }[] = []
     for (let i = 0; i < amountOfUsers; i++) {
         const password = getRandomString(16)
         const email = getRandomString(12) + '@' + getRandomString(12) + '.com'
-        try {
-            await auth.createUserWithEmailAndPassword(email, password)
+        users.push({ email, password })
+    }
+    await Promise.all(
+        users.map(async (data: { email: string; password: string }) => {
+            const email = data.email
+            const password = data.password
 
+            try {
+                auth.createUserWithEmailAndPassword(email, password)
+            } catch (error) {
+                return error
+            }
             if (userFields) {
                 let data: { [key: string]: any } = {}
                 for (const field in userFields) {
@@ -47,34 +50,33 @@ export default async function firedumCreateUser({
                     } else {
                         let fieldType = typeof userFields[field] // get the typeof the value
                         let value: string | number = getRandomString(5) // defaults to a string
-                        // if it is a number
                         if (fieldType === typeof 1) value = getRandomNumber(4)
-                        // if it is a string
                         else if (fieldType === typeof '') value = getRandomString(5)
 
                         data[field] = value // overwrite teh previus value with the new random value
                     }
                 }
+                console.log(typeof fs.collection('users'))
+
                 if (
                     usersCollectionReference &&
                     typeof usersCollectionReference === typeof fs.collection('users')
                 ) {
-                    await usersCollectionReference.add({
+                    usersCollectionReference.add({
                         password: password,
                         email: email,
                         ...data,
                     })
                 } else {
-                    await fs.collection('users').add({
+                    fs.collection('users').add({
                         password: password,
                         email: email,
                         ...data,
                     })
                 }
             }
-        } catch (error) {
-            return error
-        }
-    }
+        })
+    )
+
     console.log('end of run')
 }

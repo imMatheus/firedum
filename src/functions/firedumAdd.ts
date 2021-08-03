@@ -1,88 +1,59 @@
 import firebase from 'firebase/app'
-import getRandomNumber from '../utils/getRandomNumber'
-import getRandomString from '../utils/getRandomString'
-import faker from 'faker'
+import fakerCatagories from '../faker'
 
 interface Props {
     collectionReference: firebase.firestore.CollectionReference
     fields: { [key: string]: any }
-    numberOfItems?: number
+    numberOfDocuments?: number
+    documents?: any[]
 }
 
+/**
+ * @param {collectionReference} collectionReference - reference to a firestore collection.
+ * @param {Object} fields - the fields to be added to each document
+ * @param {Object} numberOfDocuments - the number of documents to be added th teh collection
+ * @param {Array<Object>} documents - if passed, firedum will add all of the documents given and ignores the numberOfDocuments variable
+ * @returns
+ */
 export default async function firedumAdd({
     collectionReference,
     fields,
-    numberOfItems = 1, // default is 1
+    numberOfDocuments = 1, // default is 1
+    documents,
 }: Props) {
-    if (!collectionReference) throw new Error('Please provide a firestore collection reference')
-    if (!fields) throw new Error('Please provide at least one field to fields')
-
-    for (let i = 0; i < numberOfItems; i++) {
-        let data: { [key: string]: any } = {}
+    if (!collectionReference) throw new Error('Please provide a firestore collection reference') // collectionReference is required
+    if (!fields || !documents)
+        throw new Error('Please provide at least one field to fields or an array of documents') // required
+    let dataArray: any = []
+    if (documents && documents.length > 0) {
+        numberOfDocuments = documents!.length // we only want to add the given docs, not more or less
+    }
+    for (let i = 0; i < numberOfDocuments; i++) {
+        let data: { [key: string]: any } = {} // data object to be added with docs
         for (const field in fields) {
             if (fields[field]) {
+                // if a given if field is not falsy we don't override it
                 data[field] = fields[field]
             } else {
-                let fieldType = typeof fields[field]
-                let value
-                switch (field) {
-                    case 'name':
-                        value = faker.name.firstName() + ' ' + faker.name.lastName()
-                        break
-                    case 'firstName':
-                        value = faker.name.firstName()
-                        break
-                    case 'lastName':
-                        value = faker.name.lastName()
-                        break
-                    case 'phoneNumber':
-                        value = faker.phone.phoneNumber()
-                        break
-                    case 'past':
-                        value = faker.date.past()
-                        break
-                    case 'future':
-                        value = faker.date.future()
-                        break
-                    case 'recent':
-                        value = faker.date.recent()
-                        break
-                    case 'month':
-                        value = faker.date.month()
-                        break
-                    case 'weekday':
-                        value = faker.date.weekday()
-                        break
-                    case 'abbreviation':
-                        value = faker.date.weekday()
-                        break
-                    case 'adjective':
-                        value = faker.hacker.adjective()
-                        break
-                    case 'noun':
-                        value = faker.hacker.noun()
-                        break
-                    case 'verb':
-                        value = faker.hacker.verb()
-                        break
-                    case 'ingverb':
-                        value = faker.hacker.ingverb()
-                        break
-                    case 'phrase':
-                        value = faker.hacker.phrase()
-                        break
-
-                    default:
-                        if (fieldType === typeof 1) value = getRandomNumber(4)
-                        else if (fieldType === typeof '') value = getRandomString(4)
-                        break
+                let value = fakerCatagories.firstName()
+                if (fakerCatagories[field]) {
+                    if (fakerCatagories[field]()) {
+                        value = await fakerCatagories[field]()
+                    }
                 }
-
-                // let value: string | number = getRandomString(5)
 
                 data[field] = value
             }
         }
-        await collectionReference.add(data)
+        // any given field to the document will override what gets passed by in fields
+        if (documents) documents[i] = { ...data, ...documents[i] }
+        else dataArray.push(data)
     }
+    if (documents) {
+        // push the docs
+        await Promise.all(documents.map((data: any) => collectionReference.add(data)))
+    } else {
+        await Promise.all(dataArray.map((data: any) => collectionReference.add(data)))
+    }
+    return dataArray
 }

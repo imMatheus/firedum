@@ -4,8 +4,17 @@ interface Props {
     fields: {
         [key: string]: any;
     };
-    numberOfItems?: number;
+    numberOfDocuments?: number;
+    documents?: any[];
 }
-export default function firedumAdd({ collectionReference, fields, numberOfItems, }: Props): Promise<void>;
+/**
+ * @param {collectionReference} collectionReference - reference to a firestore collection.
+ * @param {Object} fields - the fields to be added to each document
+ * @param {Object} numberOfDocuments - the number of documents to be added th teh collection
+ * @param {Array<Object>} documents - if passed, firedum will add all of the documents given and ignores the numberOfDocuments variable
+ * @returns
+ */
+export default function firedumAdd({ collectionReference, fields, numberOfDocuments, // default is 1
+documents, }: Props): Promise<any>;
 export {};
 //# sourceMappingURL=firedumAdd.d.ts.map

@@ -5,6 +5,11 @@ interface Props {
     fields: { [key: string]: any }
 }
 
+/**
+ *
+ * @param collectionReference
+ * @param fields
+ */
 export default async function firedumUpdate({ collectionReference, fields }: Props) {
     await collectionReference.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {

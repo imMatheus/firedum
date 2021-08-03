@@ -12,6 +12,6 @@ interface Props {
  * @param {CollectionReference} usersCollectionReference - a reference to a users collection to store additional data about user
  * @returns
  */
-export default function firedumCreateUser({ amountOfUsers, userFields, usersCollectionReference, }: Props): Promise<any>;
+export default function firedumCreateUser({ amountOfUsers, userFields, usersCollectionReference, }: Props): Promise<void>;
 export {};
 //# sourceMappingURL=firebaseCreateUser.d.ts.map
