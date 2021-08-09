@@ -1,34 +1,53 @@
-import { firedumAdd, firedumUpdate, firedumCreateUser } from '../src/index'
-import { fs } from '../src/firebase'
+import firedum, { firedumAdd, firedumCreateUser, firedumUpdate } from '../src/index'
+import app, { fs } from './firebase'
+firedum(app)
 
-console.log('hej på dig')
-
-const OPTIONS = {
-    collectionReference: fs.collection('iikk'),
-    documents: [
-        { zipCode: '1', name: 'a' },
-        { zipCode: '2', name: 'b' },
-        { zipCode: '3', name: 'c' },
-        { zipCode: '4', name: 'd' },
-    ],
-    fields: {
-        companyName: '',
-        loo: '',
-        ppp: 'pppp',
-    },
-    numberOfItems: 0,
-}
 const runner = async () => {
     console.log('start')
     console.time('starter')
     console.timeLog('starter')
-
-    try {
-        await firedumAdd(OPTIONS)
-    } catch (error) {
-        console.log(error)
-    }
+    // await firedumAdd({
+    //     collectionReference: fs.collection('f'),
+    //     fields: {
+    //         color: '',
+    //         sentence: '',
+    //     },
+    //     numberOfDocuments: 1,
+    // })
+    // .then(async ({ ids, reference }) => {
+    //     await Promise.all(
+    //         ids.map(async (id) => {
+    //             await firedumAdd({
+    //                 collectionReference: reference.doc(id).collection('wegood'),
+    //                 fields: {
+    //                     color: '',
+    //                 },
+    //                 numberOfDocuments: 2,
+    //             })
+    //         })
+    //     )
+    // })
+    // await firedumCreateUser({
+    //     amountOfUsers: 1,
+    //     fields: {
+    //         zipCode: '',
+    //         color: '',
+    //     },
+    //     collectionReference: fs.collection('ww'),
+    // }).then(async ({ ids, reference }) => {
+    //     await Promise.all(
+    //         ids.map(async (id: string) => {
+    //             await firedumAdd({
+    //                 collectionReference: reference.doc(id).collection('wegood'),
+    //                 fields: {
+    //                     color: '',
+    //                 },
+    //                 numberOfDocuments: 2,
+    //             })
+    //         })
+    //     )
+    // })
     console.timeEnd('starter')
-    console.log('end')
+    console.log('ending it all')
 }
 runner()

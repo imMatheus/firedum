@@ -13,7 +13,7 @@ interface Props {
  * @param {Object} fields - the fields to be added to each document
  * @param {Object} numberOfDocuments - the number of documents to be added th teh collection
  * @param {Array<Object>} documents - if passed, firedum will add all of the documents given and ignores the numberOfDocuments variable
- * @returns
+ * @returns {Array, Array, collectionReference} {data, ids, collectionReference }
  */
 export default async function firedumAdd({
     collectionReference,
@@ -22,19 +22,15 @@ export default async function firedumAdd({
     documents,
 }: Props) {
     if (!collectionReference) throw new Error('Please provide a firestore collection reference') // collectionReference is required
-    if (!fields || !documents)
+    if (!fields && !documents)
         throw new Error('Please provide at least one field to fields or an array of documents') // required
-    let dataArray: any = []
     if (documents && documents.length > 0) {
         numberOfDocuments = documents!.length // we only want to add the given docs, not more or less
     }
+    let data: any = []
     for (let i = 0; i < numberOfDocuments; i++) {
-        let data: { [key: string]: any } = {} // data object to be added with docs
         for (const field in fields) {
-            if (fields[field]) {
-                // if a given if field is not falsy we don't override it
-                data[field] = fields[field]
-            } else {
+            if (!fields[field]) {
                 let value = fakerCatagories.firstName()
                 if (fakerCatagories[field]) {
                     if (fakerCatagories[field]()) {
@@ -42,18 +38,33 @@ export default async function firedumAdd({
                     }
                 }
 
-                data[field] = value
+                fields[field] = value
             }
         }
         // any given field to the document will override what gets passed by in fields
-        if (documents) documents[i] = { ...data, ...documents[i] }
-        else dataArray.push(data)
+        if (documents) documents[i] = { ...fields, ...documents[i] }
+        else data.push(fields)
     }
     if (documents) {
         // push the docs
-        await Promise.all(documents.map((data: any) => collectionReference.add(data)))
+        let ids: string[] = []
+        await Promise.all(
+            documents.map((doc: any) => {
+                let id = collectionReference.doc().id
+                ids.push(id)
+                collectionReference.doc(id).set(doc)
+            })
+        )
+        return { documents, ids, reference: collectionReference }
     } else {
-        await Promise.all(dataArray.map((data: any) => collectionReference.add(data)))
+        let ids: string[] = []
+        await Promise.all(
+            data.map(async (doc: any) => {
+                let id = collectionReference.doc().id
+                ids.push(id)
+                await collectionReference.doc(id).set(doc)
+            })
+        )
+        return { data, ids, reference: collectionReference }
     }
-    return dataArray
 }
