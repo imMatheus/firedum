@@ -49,8 +49,11 @@ export default async function firedumCreateUser({
             await auth.createUserWithEmailAndPassword(email, password).then(async (currentUser) => {
                 if (fields && currentUser && collectionReference) {
                     for (const field in fields) {
-                        if (!fields[field]) {
-                            let value = fakerCatagories.firstName()
+                        let value = fakerCatagories.firstName()
+                        if (fields[field].split(':').length > 1) {
+                            value = await fakerCatagories[fields[field].split(':')[1]]()
+                            fields[field] = value
+                        } else if (!fields[field]) {
                             if (fakerCatagories[field]) {
                                 if (fakerCatagories[field]()) {
                                     value = await fakerCatagories[field]()
@@ -60,6 +63,7 @@ export default async function firedumCreateUser({
                             fields[field] = value
                         }
                     }
+
                     data.push({
                         password: password,
                         email: email,

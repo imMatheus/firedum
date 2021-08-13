@@ -1,6 +1,6 @@
 {
     "name": "firedum",
-    "version": "2.2.3",
+    "version": "2.2.4",
     "description": "A npm package to help you generate documents or users for your firebase project",
     "main": "lib/index.js",
     "types": "lib",
