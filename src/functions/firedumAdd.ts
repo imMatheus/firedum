@@ -30,8 +30,13 @@ export default async function firedumAdd({
     let data: any = []
     for (let i = 0; i < numberOfDocuments; i++) {
         for (const field in fields) {
-            if (!fields[field]) {
-                let value = fakerCatagories.firstName()
+            let value = fakerCatagories.firstName()
+            if (fields[field].split(':').length > 1) {
+                if (fields[field].split(':')[1]) {
+                    value = await fakerCatagories[fields[field].split(':')[1]]()
+                    fields[field] = value
+                }
+            } else if (!fields[field]) {
                 if (fakerCatagories[field]) {
                     if (fakerCatagories[field]()) {
                         value = await fakerCatagories[field]()
