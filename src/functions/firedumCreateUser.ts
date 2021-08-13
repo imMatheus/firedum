@@ -50,17 +50,19 @@ export default async function firedumCreateUser({
                 if (fields && currentUser && collectionReference) {
                     for (const field in fields) {
                         let value = fakerCatagories.firstName()
-                        if (fields[field].split(':').length > 1) {
-                            value = await fakerCatagories[fields[field].split(':')[1]]()
-                            fields[field] = value
-                        } else if (!fields[field]) {
-                            if (fakerCatagories[field]) {
-                                if (fakerCatagories[field]()) {
-                                    value = await fakerCatagories[field]()
+                        if (typeof fields[field] === 'string') {
+                            if (fields[field].split(':').length > 1) {
+                                value = await fakerCatagories[fields[field].split(':')[1]]()
+                                fields[field] = value
+                            } else if (!fields[field]) {
+                                if (fakerCatagories[field]) {
+                                    if (fakerCatagories[field]()) {
+                                        value = await fakerCatagories[field]()
+                                    }
                                 }
-                            }
 
-                            fields[field] = value
+                                fields[field] = value
+                            }
                         }
                     }
 
