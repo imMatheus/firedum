@@ -7,23 +7,37 @@ const runner = async () => {
     console.time('starter')
     console.timeLog('starter')
     // await firedumAdd({
-    //     collectionReference: fs.collection('kkkskdn'),
+    //     collectionReference: fs.collection('floowers'),
     //     fields: {
-    //         coloringItBrah: ':color',
+    //         name: ':firstName',
+    //         displayName: ':userName',
+    //         profileImage: ':avatar',
     //         bio: ':sentence',
+    //         location: ':city',
+    //         url: ':url',
+    //         joinedAt: new Date(),
+    //         amountOfFollowers: ':number',
+    //         amountOfFollowing: ':number',
     //     },
-    //     numberOfDocuments: 1,
+    //     numberOfDocuments: 10,
     // })
 
-    await firedumCreateUser({
-        amountOfUsers: 1,
+    let g = await firedumCreateUser({
+        collectionReference: fs.collection('aaa'),
         fields: {
-            zipCode: 0,
-            colorIng: ':color',
+            name: ':firstName',
+            displayName: ':userName',
+            profileImage: ':avatar',
+            bio: ':sentence',
+            location: ':city',
+            url: ':url',
             joinedAt: new Date(),
+            amountOfFollowers: ':number',
+            amountOfFollowing: ':number',
         },
-        collectionReference: fs.collection('nghy'),
+        amountOfUsers: 10,
     })
+
     console.timeEnd('starter')
     console.log('ending it all')
 }

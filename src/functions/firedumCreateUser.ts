@@ -48,20 +48,30 @@ export default async function firedumCreateUser({
         try {
             await auth.createUserWithEmailAndPassword(email, password).then(async (currentUser) => {
                 if (fields && currentUser && collectionReference) {
+                    let generatedFields: any = {}
                     for (const field in fields) {
                         let value = fakerCatagories.firstName()
-                        if (typeof fields[field] === 'string') {
-                            if (fields[field].split(':').length > 1) {
-                                value = await fakerCatagories[fields[field].split(':')[1]]()
-                                fields[field] = value
-                            } else if (!fields[field]) {
-                                if (fakerCatagories[field]) {
-                                    if (fakerCatagories[field]()) {
-                                        value = await fakerCatagories[field]()
-                                    }
-                                }
+                        generatedFields[field] = fields[field]
 
-                                fields[field] = value
+                        if (typeof fields[field] === 'string') {
+                            if (
+                                !fields[field] &&
+                                fakerCatagories[field] &&
+                                fakerCatagories[field]()
+                            ) {
+                                value = await fakerCatagories[field]()
+                                generatedFields[field] = value
+                            } else if (
+                                fields[field].length > 1 &&
+                                fields[field][0] === ':' &&
+                                fakerCatagories[fields[field].slice(1)]
+                            ) {
+                                value = await fakerCatagories[fields[field].slice(1)]()
+                                generatedFields[field] = value
+                            } else if (fields[field] === '') {
+                                generatedFields[field] = value
+                            } else {
+                                generatedFields[field] = fields[field]
                             }
                         }
                     }
@@ -69,14 +79,15 @@ export default async function firedumCreateUser({
                     data.push({
                         password: password,
                         email: email,
-                        ...fields,
+                        ...generatedFields,
                     })
+
                     if (currentUser?.user?.uid) {
                         ids.push(currentUser.user.uid)
                         collectionReference.doc(currentUser.user.uid).set({
                             password: password,
                             email: email,
-                            ...fields,
+                            ...generatedFields,
                         })
                     }
                 }

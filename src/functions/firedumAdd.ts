@@ -29,24 +29,33 @@ export default async function firedumAdd({
     }
     let data: any = []
     for (let i = 0; i < numberOfDocuments; i++) {
+        let generatedFields: any = {}
         for (const field in fields) {
             let value = fakerCatagories.firstName()
-            if (fields[field].split(':').length > 1) {
-                value = await fakerCatagories[fields[field].split(':')[1]]()
-                fields[field] = value
-            } else if (!fields[field]) {
-                if (fakerCatagories[field]) {
-                    if (fakerCatagories[field]()) {
-                        value = await fakerCatagories[field]()
-                    }
-                }
+            generatedFields[field] = fields[field]
 
-                fields[field] = value
+            if (typeof fields[field] === 'string') {
+                if (!fields[field] && fakerCatagories[field] && fakerCatagories[field]()) {
+                    value = await fakerCatagories[field]()
+                    generatedFields[field] = value
+                } else if (
+                    fields[field].length > 1 &&
+                    fields[field][0] === ':' &&
+                    fakerCatagories[fields[field].slice(1)]
+                ) {
+                    value = await fakerCatagories[fields[field].slice(1)]()
+                    generatedFields[field] = value
+                } else if (fields[field] === '') {
+                    generatedFields[field] = value
+                } else {
+                    generatedFields[field] = fields[field]
+                }
             }
         }
+
         // any given field to the document will override what gets passed by in fields
-        if (documents) documents[i] = { ...fields, ...documents[i] }
-        else data.push(fields)
+        if (documents) documents[i] = { ...generatedFields, ...documents[i] }
+        else data.push(generatedFields)
     }
     if (documents) {
         // push the docs
