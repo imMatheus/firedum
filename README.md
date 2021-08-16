@@ -69,6 +69,7 @@ await firedumAdd({
         // NOTE that firedum uses faker.js for generating the mock data,
         // if you pass a key with a falsy value, e.g '', firedum will try generating
         // the value from what the key is, any faker.js function name can be passed as a key
+        favoriteColor: ':color',
     },
     // number of items to be added to the collection - defaults to 1
     numberOfDocuments: 10,
