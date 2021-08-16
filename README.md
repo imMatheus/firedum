@@ -53,7 +53,7 @@ export default app
 
 ## firedumAdd
 
-Adds new documents to a given collection collection
+Adds new documents to a given collection
 
 ```js
 import { firedumAdd } from 'firedum'
