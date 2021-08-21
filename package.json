@@ -6,8 +6,8 @@
     "types": "lib",
     "scripts": {
         "build": "tsc -p .",
-        "gg": "npx ts-node src/index.ts",
-        "watch": "ts-node-dev --respawn -- test/index.ts"
+        "watch": "ts-node-dev --respawn -- dev/index.ts",
+        "test": "jest"
     },
     "keywords": [
         "firebase",
@@ -17,13 +17,16 @@
     "license": "MIT",
     "devDependencies": {
         "@types/faker": "^5.5.7",
+        "@types/jest": "^27.0.1",
+        "jest": "^27.0.6",
+        "ts-jest": "^27.0.5",
         "ts-node-dev": "^1.1.8",
         "typescript": "^4.3.5"
     },
     "dependencies": {
+        "faker": "^5.5.3",
         "firebase": "^8.8.1",
         "firebase-admin": "^9.7.0",
-        "firebase-tools": "^9.10.0",
-        "faker": "^5.5.3"
+        "firebase-tools": "^9.10.0"
     }
 }

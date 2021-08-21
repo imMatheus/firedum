@@ -6,8 +6,24 @@ const runner = async () => {
     console.log('start')
     console.time('starter')
     console.timeLog('starter')
-    // await firedumAdd({
-    //     collectionReference: fs.collection('floowers'),
+    await firedumAdd({
+        collectionReference: fs.collection('papapapapapa'),
+        fields: {
+            name: ':firstName',
+            displayName: ':userName',
+            location: ':city',
+            // profileImage: ':avatar',
+            // bio: ':sentence',
+            // url: ':url',
+            // joinedAt: new Date(),
+            // amountOfFollowers: ':number',
+            // amountOfFollowing: ':number',
+        },
+        numberOfDocuments: 2,
+    }).then((b) => console.log(b))
+
+    // let g = await firedumCreateUser({
+    //     collectionReference: fs.collection('aaa'),
     //     fields: {
     //         name: ':firstName',
     //         displayName: ':userName',
@@ -19,24 +35,8 @@ const runner = async () => {
     //         amountOfFollowers: ':number',
     //         amountOfFollowing: ':number',
     //     },
-    //     numberOfDocuments: 10,
+    //     amountOfUsers: 10,
     // })
-
-    let g = await firedumCreateUser({
-        collectionReference: fs.collection('aaa'),
-        fields: {
-            name: ':firstName',
-            displayName: ':userName',
-            profileImage: ':avatar',
-            bio: ':sentence',
-            location: ':city',
-            url: ':url',
-            joinedAt: new Date(),
-            amountOfFollowers: ':number',
-            amountOfFollowing: ':number',
-        },
-        amountOfUsers: 10,
-    })
 
     console.timeEnd('starter')
     console.log('ending it all')
