@@ -171,7 +171,7 @@ await firedumAdd({
     )
 })
 
-// The exact thing goes for using the firedumCreateUser function
+// The exact same thing goes for using the firedumCreateUser function
 await firedumCreateUser({
     amountOfUsers: 5,
     fields: {
