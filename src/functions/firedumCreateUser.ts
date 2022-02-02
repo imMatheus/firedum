@@ -30,7 +30,7 @@ export default async function firedumCreateUser({
             `firedumCreatUser requires that you have initialized your app to firedum. 
             To do this, follow the following instructions:
             1. import firedum from "firedum"
-            2. call firedum the firedum with your firebase app as its argument, e.g firedum(app)
+            2. call firedum with your firebase app as its argument, e.g firedum(app)
             
             `
         )
