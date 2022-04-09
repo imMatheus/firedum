@@ -1,1 +1,1 @@
-{"version":3,"file":"isLiteralObject.js","sourceRoot":"","sources":["../../src/utils/isLiteralObject.ts"],"names":[],"mappings":";;AAGA,SAAwB,eAAe,CAAwB,CAAI;IAC/D,OAAO,CAAC,CAAC,CAAC,IAAI,CAAC,CAAC,WAAW,KAAK,MAAM,CAAA;AAC1C,CAAC;AAFD,kCAEC"}
+{"version":3,"file":"isLiteralObject.js","sourceRoot":"","sources":["../../src/utils/isLiteralObject.ts"],"names":[],"mappings":";;AAGA,SAAwB,eAAe,CAAwB,CAAI;IAClE,OAAO,CAAC,CAAC,CAAC,IAAI,CAAC,CAAC,WAAW,KAAK,MAAM,CAAC;AACxC,CAAC;AAFD,kCAEC"}

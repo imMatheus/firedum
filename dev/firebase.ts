@@ -3,12 +3,12 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyClWTsJ3jIfMbDEfGHJCFagefp8bDagYZA',
-	authDomain: 'firedum-bb.firebaseapp.com',
-	projectId: 'firedum-bb',
-	storageBucket: 'firedum-bb.appspot.com',
-	messagingSenderId: '393856153273',
-	appId: '1:393856153273:web:cfc20368cc44867e490d68'
+	apiKey: 'AIzaSyCdZLYvx4VR46s0xJQkKdlrBGFz7i7_Sxw',
+	authDomain: 'chatter-dev-90e58.firebaseapp.com',
+	projectId: 'chatter-dev-90e58',
+	storageBucket: 'chatter-dev-90e58.appspot.com',
+	messagingSenderId: '1038342586432',
+	appId: '1:1038342586432:web:0383bbd4747f0094689fa5'
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();

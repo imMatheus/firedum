@@ -1,1 +1,1 @@
-{"version":3,"file":"faker.d.ts","sourceRoot":"","sources":["../src/faker.ts"],"names":[],"mappings":"AA8OA,QAAA,MAAM,eAAe,EAAE,GAoBtB,CAAA;AAED,eAAe,eAAe,CAAA"}
+{"version":3,"file":"faker.d.ts","sourceRoot":"","sources":["../src/faker.ts"],"names":[],"mappings":"AA8OA,QAAA,MAAM,eAAe,EAAE,GAoBtB,CAAC;AAEF,eAAe,eAAe,CAAC"}

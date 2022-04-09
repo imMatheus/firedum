@@ -1,8 +1,13 @@
-import firebase from 'firebase/app';
 import fakerCatagories from '../faker';
+import {
+	CollectionReference,
+	getDocs,
+	updateDoc,
+	doc
+} from 'firebase/firestore';
 
 interface Props {
-	collectionReference: firebase.firestore.CollectionReference;
+	collectionReference: CollectionReference;
 	fields: { [key: string]: any };
 }
 
@@ -15,8 +20,8 @@ export default async function firedumUpdate({
 	collectionReference,
 	fields
 }: Props) {
-	await collectionReference.get().then(async (querySnapshot) => {
-		querySnapshot.forEach(async function (doc) {
+	await getDocs(collectionReference).then(async (querySnapshot) => {
+		querySnapshot.forEach(async function (document) {
 			for (const field in fields) {
 				if (!fields[field]) {
 					let value = fakerCatagories.firstName();
@@ -29,7 +34,8 @@ export default async function firedumUpdate({
 					fields[field] = value;
 				}
 			}
-			collectionReference.doc(doc.id).update({ ...fields });
+
+			updateDoc(doc(collectionReference, document.id), fields);
 		});
 	});
 }

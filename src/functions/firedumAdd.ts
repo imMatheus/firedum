@@ -1,8 +1,8 @@
-import firebase from 'firebase/app';
 import fakerCatagories from '../faker';
+import { CollectionReference, addDoc } from 'firebase/firestore';
 
 interface Props {
-	collectionReference: firebase.firestore.CollectionReference;
+	collectionReference: CollectionReference;
 	fields: { [key: string]: any };
 	numberOfDocuments?: number;
 	documents?: any[];
@@ -68,10 +68,9 @@ export default async function firedumAdd({
 		// push the docs
 		let ids: string[] = [];
 		await Promise.all(
-			documents.map((doc: any) => {
-				let id = collectionReference.doc().id;
+			documents.map(async (doc: any) => {
+				const id = (await addDoc(collectionReference, doc)).id;
 				ids.push(id);
-				collectionReference.doc(id).set(doc);
 			})
 		);
 		return { documents, ids, reference: collectionReference };
@@ -79,9 +78,8 @@ export default async function firedumAdd({
 		let ids: string[] = [];
 		await Promise.all(
 			data.map(async (doc: any) => {
-				let id = collectionReference.doc().id;
+				const id = (await addDoc(collectionReference, doc)).id;
 				ids.push(id);
-				await collectionReference.doc(id).set(doc);
 			})
 		);
 		return { data, ids, reference: collectionReference };

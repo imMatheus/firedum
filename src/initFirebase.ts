@@ -1,16 +1,17 @@
-import firebase from 'firebase/app';
+import { Auth, getAuth } from 'firebase/auth';
+import { Database, getDatabase } from 'firebase/database';
+import { Firestore, getFirestore } from 'firebase/firestore';
+import { FirebaseApp } from 'firebase/app';
 
-let auth: firebase.auth.Auth;
-let db: firebase.database.Database;
-let fs: firebase.firestore.Firestore;
-let storage: firebase.storage.Storage;
-let app: firebase.app.App;
+let auth: Auth;
+let db: Database;
+let fs: Firestore;
+let app: FirebaseApp;
 
-export default function firedum(application: firebase.app.App) {
-	fs = application.firestore();
-	auth = application.auth();
-	db = application.database();
-	// storage = firebase.storage()
+export default function firedum(application: FirebaseApp) {
+	fs = getFirestore(application);
+	auth = getAuth(application);
+	db = getDatabase(application);
 	app = application;
 }
 

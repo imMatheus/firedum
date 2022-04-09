@@ -2,21 +2,22 @@
 // storage
 // querys
 // faker.js
-import firebase from 'firebase/app';
-import getRandomNumber from '../utils/getRandomNumber';
 import getRandomString from '../utils/getRandomString';
 import fakerCatagories from '../faker';
-import app, { auth, fs } from '../initFirebase';
+import app, { auth } from '../initFirebase';
+import { CollectionReference, setDoc, doc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 interface Props {
 	amountOfUsers?: number;
 	fields?: { [key: string]: any };
-	collectionReference?: firebase.firestore.CollectionReference;
+	collectionReference?: CollectionReference;
 }
 
 /**
  * @param {number} amountOfUsers - amount of users to be added *defaults to 1
- * @param {Object} userFields - Object storing additional data about each added user
- * @param {CollectionReference} usersCollectionReference - a reference to a users collection to store additional data about user
+ * @param {Object} fields - Object storing additional data about each added user
+ * @param {CollectionReference} collectionReference - a reference to a users collection to store additional data about user
  * @returns {Object} {data, ids, collectionReference }
  */
 
@@ -46,9 +47,8 @@ export default async function firedumCreateUser({
 		const email = getRandomString(12) + '@' + getRandomString(12) + '.com';
 
 		try {
-			await auth
-				.createUserWithEmailAndPassword(email, password)
-				.then(async (currentUser) => {
+			await createUserWithEmailAndPassword(auth, email, password).then(
+				async (currentUser) => {
 					if (fields && currentUser && collectionReference) {
 						let generatedFields: any = {};
 						for (const field in fields) {
@@ -86,14 +86,15 @@ export default async function firedumCreateUser({
 
 						if (currentUser?.user?.uid) {
 							ids.push(currentUser.user.uid);
-							collectionReference.doc(currentUser.user.uid).set({
+							setDoc(doc(collectionReference, currentUser.user.uid), {
 								password: password,
 								email: email,
 								...generatedFields
 							});
 						}
 					}
-				});
+				}
+			);
 		} catch (error) {
 			console.error(error);
 			return error;

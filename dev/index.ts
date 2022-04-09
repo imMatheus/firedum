@@ -25,7 +25,7 @@ const runner = async () => {
 			// amountOfFollowers: ':number',
 			// amountOfFollowing: ':number',
 		},
-		numberOfDocuments: 2
+		numberOfDocuments: 20
 	}).then((b) => console.log(b));
 
 	// let g = await firedumCreateUser({
