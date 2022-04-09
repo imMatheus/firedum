@@ -1,32 +1,34 @@
 {
-    "name": "firedum",
-    "version": "2.2.6",
-    "description": "A npm package to help you generate documents or users for your firebase project",
-    "main": "lib/index.js",
-    "types": "lib",
-    "scripts": {
-        "build": "tsc -p .",
-        "watch": "ts-node-dev --respawn -- dev/index.ts",
-        "test": "jest"
-    },
-    "keywords": [
-        "firebase",
-        "typescript"
-    ],
-    "author": "imMatheus",
-    "license": "MIT",
-    "devDependencies": {
-        "@types/faker": "^5.5.7",
-        "@types/jest": "^27.0.1",
-        "jest": "^27.0.6",
-        "ts-jest": "^27.0.5",
-        "ts-node-dev": "^1.1.8",
-        "typescript": "^4.3.5"
-    },
-    "dependencies": {
-        "faker": "^5.5.3",
-        "firebase": "^8.8.1",
-        "firebase-admin": "^9.7.0",
-        "firebase-tools": "^9.10.0"
-    }
+	"name": "firedum",
+	"version": "2.2.6",
+	"description": "A npm package to help you generate documents or users for your firebase project",
+	"main": "lib/index.js",
+	"types": "lib",
+	"scripts": {
+		"build": "tsc -p .",
+		"watch": "ts-node-dev --respawn -- dev/index.ts",
+		"test": "jest",
+		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"keywords": [
+		"firebase",
+		"typescript"
+	],
+	"author": "imMatheus",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/faker": "^5.5.7",
+		"@types/jest": "^27.0.1",
+		"jest": "^27.0.6",
+		"prettier": "^2.6.2",
+		"ts-jest": "^27.0.5",
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.3.5"
+	},
+	"dependencies": {
+		"faker": "^5.5.3",
+		"firebase": "^9.6.10",
+		"firebase-admin": "^10.0.2",
+		"firebase-tools": "^10.6.0"
+	}
 }

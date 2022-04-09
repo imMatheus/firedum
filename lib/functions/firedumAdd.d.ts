@@ -1,11 +1,11 @@
 import firebase from 'firebase/app';
 interface Props {
-    collectionReference: firebase.firestore.CollectionReference;
-    fields: {
-        [key: string]: any;
-    };
-    numberOfDocuments?: number;
-    documents?: any[];
+	collectionReference: firebase.firestore.CollectionReference;
+	fields: {
+		[key: string]: any;
+	};
+	numberOfDocuments?: number;
+	documents?: any[];
 }
 /**
  * @param {collectionReference} collectionReference - reference to a firestore collection.
@@ -14,17 +14,24 @@ interface Props {
  * @param {Array<Object>} documents - if passed, firedum will add all of the documents given and ignores the numberOfDocuments variable
  * @returns {Array, Array, collectionReference} {data, ids, collectionReference }
  */
-export default function firedumAdd({ collectionReference, fields, numberOfDocuments, // default is 1
-documents, }: Props): Promise<{
-    documents: any[];
-    ids: string[];
-    reference: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
-    data?: undefined;
-} | {
-    data: any;
-    ids: string[];
-    reference: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
-    documents?: undefined;
-}>;
+export default function firedumAdd({
+	collectionReference,
+	fields,
+	numberOfDocuments, // default is 1
+	documents
+}: Props): Promise<
+	| {
+			documents: any[];
+			ids: string[];
+			reference: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
+			data?: undefined;
+	  }
+	| {
+			data: any;
+			ids: string[];
+			reference: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
+			documents?: undefined;
+	  }
+>;
 export {};
 //# sourceMappingURL=firedumAdd.d.ts.map

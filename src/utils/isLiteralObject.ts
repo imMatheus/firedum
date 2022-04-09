@@ -1,6 +1,6 @@
 interface Constructor {
-    constructor: any
+	constructor: any;
 }
 export default function isLiteralObject<T extends Constructor>(a: T): boolean {
-    return !!a && a.constructor === Object
+	return !!a && a.constructor === Object;
 }
