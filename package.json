@@ -1,6 +1,6 @@
 {
 	"name": "firedum",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "A npm package to help you generate documents or users for your firebase project",
 	"main": "lib/index.js",
 	"types": "lib",
@@ -13,6 +13,7 @@
 	},
 	"keywords": [
 		"firebase",
+		"firestore",
 		"typescript"
 	],
 	"author": "imMatheus",
@@ -20,6 +21,7 @@
 	"devDependencies": {
 		"@types/faker": "^5.5.7",
 		"@types/jest": "^27.0.1",
+		"eslint": "^8.13.0",
 		"jest": "^27.0.6",
 		"prettier": "^2.6.2",
 		"ts-jest": "^27.0.5",
@@ -27,10 +29,7 @@
 		"typescript": "^4.3.5"
 	},
 	"dependencies": {
-		"eslint": "^8.13.0",
 		"faker": "^5.5.3",
-		"firebase": "^9.6.10",
-		"firebase-admin": "^10.0.2",
-		"firebase-tools": "^10.6.0"
+		"firebase": "^9.6.10"
 	}
 }
