@@ -11,6 +11,9 @@
 /test
 /.vscode
 
+# dev
+/dev
+
 # production
 /build
 
